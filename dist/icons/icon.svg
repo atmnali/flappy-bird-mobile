@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-label="Flappy Bird Mobile icon">
+  <rect width="512" height="512" fill="#70c5ce"/>
+  <rect y="390" width="512" height="122" fill="#ded895"/>
+  <rect y="372" width="512" height="18" fill="#92d74f"/>
+  <rect y="390" width="512" height="10" fill="#4f9b3d"/>
+  <rect x="330" y="80" width="80" height="252" fill="#245e1b"/>
+  <rect x="338" y="80" width="64" height="252" fill="#67b832"/>
+  <rect x="348" y="80" width="14" height="252" fill="#a5ee57"/>
+  <rect x="318" y="280" width="104" height="44" fill="#245e1b"/>
+  <rect x="326" y="288" width="88" height="28" fill="#67b832"/>
+  <rect x="104" y="204" width="154" height="106" fill="#5b3a1d"/>
+  <rect x="122" y="186" width="104" height="18" fill="#5b3a1d"/>
+  <rect x="122" y="310" width="104" height="18" fill="#5b3a1d"/>
+  <rect x="126" y="220" width="124" height="80" fill="#f7d51d"/>
+  <rect x="152" y="238" width="72" height="24" fill="#fff3a3"/>
+  <rect x="80" y="248" width="64" height="58" fill="#5b3a1d"/>
+  <rect x="94" y="260" width="48" height="38" fill="#fff3a3"/>
+  <rect x="216" y="174" width="64" height="64" fill="#5b3a1d"/>
+  <rect x="230" y="188" width="38" height="38" fill="#ffffff"/>
+  <rect x="254" y="204" width="14" height="14" fill="#22313f"/>
+  <rect x="270" y="232" width="70" height="44" fill="#5b3a1d"/>
+  <rect x="284" y="242" width="50" height="16" fill="#e86f1c"/>
+  <rect x="284" y="260" width="38" height="12" fill="#e86f1c"/>
+</svg>
