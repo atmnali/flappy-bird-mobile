@@ -69,6 +69,7 @@ const HAZARD_SIZES = {
 const MAPS = [
   {
     name: "Meadow",
+    scene: "meadow",
     sky: "#70c5ce",
     cloud: "#ffffff",
     cloudShade: "#dff7df",
@@ -86,43 +87,84 @@ const MAPS = [
     pipeShade: "#3f8628",
   },
   {
-    name: "Sunset",
-    sky: "#e79a5c",
-    cloud: "#ffe6bc",
-    cloudShade: "#efc88a",
-    treeBase: "#f1d68f",
-    treeA: "#d08b4f",
-    treeB: "#e2ad62",
-    grass: "#b5cc4c",
-    grassDark: "#718b35",
-    ground: "#c99b63",
-    dirt: "#91623b",
-    groundLight: "#e3bd74",
-    pipeDark: "#6e3a23",
-    pipe: "#c56c35",
-    pipeLight: "#f59b53",
-    pipeShade: "#8e4a2b",
+    name: "Mountains",
+    scene: "mountains",
+    sky: "#7fcbe4",
+    cloud: "#ffffff",
+    cloudShade: "#d8eef1",
+    treeBase: "#d4efc2",
+    treeA: "#477c54",
+    treeB: "#6fa56a",
+    grass: "#7fc458",
+    grassDark: "#3f7a46",
+    ground: "#b78b5b",
+    dirt: "#7d5638",
+    groundLight: "#d5aa72",
+    pipeDark: "#25534b",
+    pipe: "#3f9b84",
+    pipeLight: "#70d7b4",
+    pipeShade: "#287064",
   },
   {
-    name: "Night",
-    sky: "#273f70",
-    cloud: "#a8bfd9",
-    cloudShade: "#6f86ad",
-    treeBase: "#526b62",
-    treeA: "#355c54",
-    treeB: "#466c61",
-    grass: "#4f8f62",
-    grassDark: "#2f5c48",
-    ground: "#9f8b68",
-    dirt: "#6e5a44",
-    groundLight: "#bba172",
-    pipeDark: "#143f55",
-    pipe: "#2d7f96",
-    pipeLight: "#64c1c8",
-    pipeShade: "#1f5f72",
+    name: "City",
+    scene: "city",
+    sky: "#8fb6d9",
+    cloud: "#f5f0dc",
+    cloudShade: "#cfdeca",
+    treeBase: "#7d8fa1",
+    treeA: "#556779",
+    treeB: "#6d7f91",
+    grass: "#707d8a",
+    grassDark: "#48525f",
+    ground: "#a58d75",
+    dirt: "#6d5a4c",
+    groundLight: "#c2a78a",
+    pipeDark: "#253847",
+    pipe: "#4e7c96",
+    pipeLight: "#87b8c7",
+    pipeShade: "#35586d",
+  },
+  {
+    name: "Ice",
+    scene: "ice",
+    sky: "#9eddea",
+    cloud: "#ffffff",
+    cloudShade: "#d6f4ff",
+    treeBase: "#d9f8ff",
+    treeA: "#9ed4e8",
+    treeB: "#b9e8f2",
+    grass: "#d8f7ff",
+    grassDark: "#7ec5da",
+    ground: "#b7e6ef",
+    dirt: "#7fb9ce",
+    groundLight: "#edfaff",
+    pipeDark: "#27617d",
+    pipe: "#4ca3bd",
+    pipeLight: "#a8eff4",
+    pipeShade: "#357e9a",
+  },
+  {
+    name: "Ocean",
+    scene: "ocean",
+    sky: "#59b4d1",
+    cloud: "#f7ffff",
+    cloudShade: "#b9e8e5",
+    treeBase: "#7ed6b5",
+    treeA: "#3aa585",
+    treeB: "#5ec9a4",
+    grass: "#59c487",
+    grassDark: "#2f815d",
+    ground: "#d8c47e",
+    dirt: "#ad9656",
+    groundLight: "#f3dda0",
+    pipeDark: "#11545c",
+    pipe: "#1b9aa0",
+    pipeLight: "#63d5cf",
+    pipeShade: "#147178",
   },
   {
     name: "Lava",
+    scene: "lava",
     sky: "#75466f",
     cloud: "#ffc7a8",
     cloudShade: "#d48a73",
@@ -261,6 +303,173 @@ function drawPixelCloud(ctx, x, y, theme) {
   pixelRect(ctx, x + 44, y + 30, 20, 4);
 }
 
+function drawMeadowScene(ctx, theme, treeLine) {
+  ctx.fillStyle = theme.treeBase;
+  pixelRect(ctx, 0, treeLine + 22, WORLD.width, 58);
+
+  for (let x = -18; x < WORLD.width + 34; x += 31) {
+    ctx.fillStyle = x % 62 === 0 ? theme.treeA : theme.treeB;
+    pixelRect(ctx, x, treeLine + 16, 28, 54);
+    pixelRect(ctx, x + 6, treeLine + 8, 16, 12);
+    pixelRect(ctx, x - 6, treeLine + 24, 16, 12);
+    pixelRect(ctx, x + 18, treeLine + 28, 16, 12);
+  }
+}
+
+function drawMountainScene(ctx, theme, elapsed, treeLine) {
+  const drift = -Math.round(((elapsed / 1000) * 18) % 96);
+
+  ctx.fillStyle = "#8ea0a7";
+  for (let x = drift - 120; x < WORLD.width + 120; x += 120) {
+    ctx.beginPath();
+    ctx.moveTo(x, treeLine + 62);
+    ctx.lineTo(x + 66, treeLine - 106);
+    ctx.lineTo(x + 142, treeLine + 62);
+    ctx.closePath();
+    ctx.fill();
+
+    ctx.fillStyle = "#eff8f1";
+    ctx.beginPath();
+    ctx.moveTo(x + 42, treeLine - 44);
+    ctx.lineTo(x + 66, treeLine - 106);
+    ctx.lineTo(x + 94, treeLine - 44);
+    ctx.closePath();
+    ctx.fill();
+    ctx.fillStyle = "#8ea0a7";
+  }
+
+  ctx.fillStyle = theme.treeBase;
+  pixelRect(ctx, 0, treeLine + 30, WORLD.width, 52);
+
+  for (let x = -12; x < WORLD.width + 26; x += 28) {
+    ctx.fillStyle = x % 56 === 0 ? theme.treeA : theme.treeB;
+    pixelRect(ctx, x + 9, treeLine + 20, 8, 40);
+    pixelRect(ctx, x + 4, treeLine + 8, 18, 18);
+    pixelRect(ctx, x, treeLine + 22, 26, 18);
+  }
+}
+
+function drawCityScene(ctx, theme, elapsed, treeLine) {
+  const drift = -Math.round(((elapsed / 1000) * 22) % 72);
+  ctx.fillStyle = "#c4d0d9";
+  pixelRect(ctx, 0, treeLine + 42, WORLD.width, 28);
+
+  for (let x = drift - 72; x < WORLD.width + 72; x += 72) {
+    const height = 80 + ((x + 144) % 3) * 26;
+    ctx.fillStyle = x % 144 === 0 ? "#657789" : "#526577";
+    pixelRect(ctx, x, treeLine + 62 - height, 46, height);
+    ctx.fillStyle = "#405263";
+    pixelRect(ctx, x + 46, treeLine + 62 - height + 14, 10, height - 14);
+
+    ctx.fillStyle = "#f2cf67";
+    for (let wx = x + 8; wx < x + 38; wx += 14) {
+      for (let wy = treeLine + 80 - height; wy < treeLine + 46; wy += 22) {
+        pixelRect(ctx, wx, wy, 6, 8);
+      }
+    }
+  }
+
+  ctx.fillStyle = theme.treeBase;
+  pixelRect(ctx, 0, treeLine + 62, WORLD.width, 20);
+}
+
+function drawIceScene(ctx, theme, elapsed, treeLine) {
+  const drift = -Math.round(((elapsed / 1000) * 14) % 86);
+  ctx.fillStyle = "#ffffff";
+
+  for (let x = drift - 86; x < WORLD.width + 86; x += 86) {
+    ctx.beginPath();
+    ctx.moveTo(x, treeLine + 60);
+    ctx.lineTo(x + 46, treeLine - 68);
+    ctx.lineTo(x + 96, treeLine + 60);
+    ctx.closePath();
+    ctx.fill();
+
+    ctx.fillStyle = "#b7e6ef";
+    ctx.beginPath();
+    ctx.moveTo(x + 46, treeLine - 68);
+    ctx.lineTo(x + 96, treeLine + 60);
+    ctx.lineTo(x + 62, treeLine + 60);
+    ctx.closePath();
+    ctx.fill();
+    ctx.fillStyle = "#ffffff";
+  }
+
+  ctx.fillStyle = theme.treeBase;
+  pixelRect(ctx, 0, treeLine + 50, WORLD.width, 32);
+
+  for (let x = -8; x < WORLD.width + 34; x += 42) {
+    ctx.fillStyle = theme.treeA;
+    pixelRect(ctx, x + 12, treeLine + 18, 10, 46);
+    ctx.fillStyle = "#ffffff";
+    pixelRect(ctx, x + 4, treeLine + 14, 26, 12);
+    pixelRect(ctx, x, treeLine + 28, 34, 12);
+  }
+}
+
+function drawOceanScene(ctx, theme, elapsed, treeLine) {
+  ctx.fillStyle = "#2f8fb9";
+  pixelRect(ctx, 0, treeLine + 14, WORLD.width, 68);
+
+  const waveShift = -Math.round(((elapsed / 1000) * 34) % 36);
+  for (let x = waveShift - 36; x < WORLD.width + 36; x += 36) {
+    ctx.fillStyle = "#8be5e2";
+    pixelRect(ctx, x, treeLine + 30, 18, 5);
+    pixelRect(ctx, x + 18, treeLine + 48, 18, 5);
+  }
+
+  for (let x = 18; x < WORLD.width; x += 92) {
+    ctx.fillStyle = "#8b6339";
+    pixelRect(ctx, x + 16, treeLine + 8, 8, 58);
+    ctx.fillStyle = "#3aa585";
+    pixelRect(ctx, x, treeLine - 2, 28, 12);
+    pixelRect(ctx, x + 18, treeLine - 14, 34, 14);
+    pixelRect(ctx, x + 6, treeLine + 10, 32, 12);
+  }
+}
+
+function drawLavaScene(ctx, theme, elapsed, treeLine) {
+  ctx.fillStyle = "#3b2b3d";
+  pixelRect(ctx, 0, treeLine - 18, WORLD.width, 100);
+
+  const lavaShift = -Math.round(((elapsed / 1000) * 46) % 42);
+  ctx.fillStyle = "#e95b2d";
+  pixelRect(ctx, 0, treeLine + 46, WORLD.width, 36);
+
+  for (let x = lavaShift - 42; x < WORLD.width + 42; x += 42) {
+    ctx.fillStyle = "#ffb13d";
+    pixelRect(ctx, x, treeLine + 56, 22, 6);
+    ctx.fillStyle = "#a33a31";
+    pixelRect(ctx, x + 18, treeLine + 70, 24, 5);
+  }
+
+  ctx.fillStyle = "#201824";
+  for (let x = -30; x < WORLD.width + 60; x += 70) {
+    ctx.beginPath();
+    ctx.moveTo(x, treeLine + 40);
+    ctx.lineTo(x + 28, treeLine - 80);
+    ctx.lineTo(x + 74, treeLine + 40);
+    ctx.closePath();
+    ctx.fill();
+  }
+}
+
+function drawLevelScene(ctx, theme, elapsed, treeLine) {
+  if (theme.scene === "mountains") {
+    drawMountainScene(ctx, theme, elapsed, treeLine);
+  } else if (theme.scene === "city") {
+    drawCityScene(ctx, theme, elapsed, treeLine);
+  } else if (theme.scene === "ice") {
+    drawIceScene(ctx, theme, elapsed, treeLine);
+  } else if (theme.scene === "ocean") {
+    drawOceanScene(ctx, theme, elapsed, treeLine);
+  } else if (theme.scene === "lava") {
+    drawLavaScene(ctx, theme, elapsed, treeLine);
+  } else {
+    drawMeadowScene(ctx, theme, treeLine);
+  }
+}
+
 function drawBackground(ctx, elapsed = 0, difficulty = getDifficulty(0)) {
   const theme = difficulty.map;
 
@@ -272,16 +481,7 @@ function drawBackground(ctx, elapsed = 0, difficulty = getDifficulty(0)) {
   drawPixelCloud(ctx, 282, 214, theme);
 
   const treeLine = WORLD.height - WORLD.groundHeight - 78;
-  ctx.fillStyle = theme.treeBase;
-  pixelRect(ctx, 0, treeLine + 22, WORLD.width, 58);
-
-  for (let x = -18; x < WORLD.width + 34; x += 31) {
-    ctx.fillStyle = x % 62 === 0 ? theme.treeA : theme.treeB;
-    pixelRect(ctx, x, treeLine + 16, 28, 54);
-    pixelRect(ctx, x + 6, treeLine + 8, 16, 12);
-    pixelRect(ctx, x - 6, treeLine + 24, 16, 12);
-    pixelRect(ctx, x + 18, treeLine + 28, 16, 12);
-  }
+  drawLevelScene(ctx, theme, elapsed, treeLine);
 
   ctx.fillStyle = theme.grass;
   pixelRect(ctx, 0, WORLD.height - WORLD.groundHeight - 8, WORLD.width, 8);
@@ -537,6 +737,7 @@ export default function App() {
   const [score, setScore] = useState(0);
   const [lastUnlocks, setLastUnlocks] = useState([]);
   const [showReady, setShowReady] = useState(false);
+  const currentLevel = getDifficulty(score).map.name;
 
   const selectedSkin = useMemo(
     () => SKINS.find((skin) => skin.id === save.selectedSkin) ?? SKINS[0],
@@ -774,6 +975,12 @@ export default function App() {
             {selectedSkin.name}
           </span>
         </div>
+
+        {screen === "playing" && score > 0 && score % 10 === 0 && (
+          <div className="level-banner" aria-live="polite">
+            {currentLevel}
+          </div>
+        )}
 
         {screen === "playing" && showReady && (
           <div className="get-ready-banner" aria-hidden="true">

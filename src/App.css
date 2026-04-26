@@ -284,6 +284,28 @@ h2 {
   pointer-events: none;
 }
 
+.level-banner {
+  position: absolute;
+  top: 82px;
+  left: 50%;
+  z-index: 5;
+  max-width: 82%;
+  padding: 8px 12px;
+  transform: translateX(-50%);
+  border: 3px solid #5b3a1d;
+  background: #fff1a6;
+  color: #5b3a1d;
+  font-size: clamp(0.8rem, 3.8cqw, 1rem);
+  font-weight: 900;
+  line-height: 1;
+  text-align: center;
+  text-transform: uppercase;
+  box-shadow:
+    inset -3px -3px 0 #d5b75d,
+    3px 3px 0 rgba(91, 58, 29, 0.25);
+  pointer-events: none;
+}
+
 .result-overlay {
   align-items: center;
   justify-content: center;
